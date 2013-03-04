@@ -238,7 +238,7 @@ def _skip_create_test_db(self, verbosity=1, autoclobber=False):
     # function. Added in https://code.djangoproject.com/ticket/12991.
     if callable(getattr(self.connection.features, 'confirm', None)):
         self.connection.features.confirm()
-    else:
+    elif hasattr(self, "_rollback_works"):
         can_rollback = self._rollback_works()
         self.connection.settings_dict['SUPPORTS_TRANSACTIONS'] = can_rollback
 
